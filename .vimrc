@@ -5,9 +5,13 @@ set expandtab
 set shiftwidth=4
 
 set number
+"set list
 
 set nocompatible
 filetype plugin indent off
+
+"beepを消す
+set visualbell t_vb=
 
 "neobundle
 if has('vim_starting')
@@ -39,7 +43,7 @@ NeoBundle 'editorconfig/editorconfig-vim'
 
 "保存時にeslint
 "http://qiita.com/toshihirock/items/39ee62ddee2eb997f7b7
-NeoBundle 'scrooloose/syntastic.git'
+"NeoBundle 'scrooloose/syntastic.git'
 
 filetype plugin indent on
 

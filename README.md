@@ -32,5 +32,10 @@ git config --global user.email "********"
 -- nvm install 10.16.3
 -- nvm use 10.16.3
 
+# terminal
+- beepを消す
+-- sudo vim /etc/inputrc
+-- set bell-style noneの行のコメントアウト解除
+
 あとはgithubに鍵を入れる
 スプレッドシートのデータをS3にcsvで退避
