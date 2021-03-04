@@ -3,3 +3,7 @@ export GOROOT=$( go env GOROOT )
 export GOBIN=$HOME/go/bin
 export PATH=$GOPATH/bin:$PATH
 
+# brew install starship
+# or
+# curl -fsSL https://starship.rs/install.sh | sudo bash
+eval "$(starship init bash)"
