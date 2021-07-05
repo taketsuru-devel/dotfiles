@@ -35,8 +35,14 @@ NeoBundle 'Xuyuanp/nerdtree-git-plugin'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'cohama/agit.vim'
 
-NeoBundle 'fatih/vim-go'
-NeoBundle 'vim-jp/vim-go-extra'
+"NeoBundle 'fatih/vim-go'
+"NeoBundle 'vim-jp/vim-go-extra'
+
+NeoBundle 'prabirshrestha/async.vim'
+NeoBundle 'prabirshrestha/asyncomplete.vim'
+NeoBundle 'prabirshrestha/asyncomplete-lsp.vim'
+NeoBundle 'prabirshrestha/vim-lsp'
+NeoBundle 'mattn/vim-lsp-settings'
 
 "editorconfigを使う
 NeoBundle 'editorconfig/editorconfig-vim'
@@ -46,6 +52,9 @@ NeoBundle 'editorconfig/editorconfig-vim'
 "NeoBundle 'scrooloose/syntastic.git'
 
 filetype plugin indent on
+
+"grepしたいときは :vim ''pattern'' **/*.suffix
+autocmd QuickFixCmdPost *grep* cwindow
 
 "日本語テスト
 call neobundle#end()
@@ -62,7 +71,21 @@ set backspace=indent,eol,start
 map <C-n> :NERDTreeToggle
 
 "vim-go ワーニングが出る、vim 7.4.2009かNeovim 0.3.1以降推奨とのこと
-let g:go_version_warning = 0
+"let g:go_version_warning = 0
 
 set laststatus=2
+
+"https://qiita.com/kitagry/items/216c2cf0066ff046d200
+nmap <silent> gd :LspDefinition<CR>
+nmap <silent> gl :LspHover<CR>
+nmap <silent> gi :LspImplementation<CR>
+nmap <silent> <f2> :LspRename<CR>
+
+let g:lsp_diagnostics_enabled = 1
+"let g:lsp_diagnostics_echo_cursor = 1
+let g:asyncomplete_auto_popup = 1
+"let g:asyncomplete_auto_completeopt = 0
+let g:asyncomplete_popup_delay = 200
+
+autocmd BufWritePre *.go LspDocumentFormatSync
 
