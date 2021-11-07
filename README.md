@@ -1,8 +1,8 @@
 # 初期設定
 - ln -s dotfiles/.vimrc ~/
-- ln -s dotfiles/.bashrc_diff ~/
+- ln -s dotfiles/.bash_profile_add ~/
 - ln -s dotfiles/.tmux_conf ~/
-- ~/.bash_profileの末尾にsource .bashrc_diff
+- ~/.bash_profileの末尾にsource .bash_profile_add
 
 # git
 - git config --global user.name  "********"
