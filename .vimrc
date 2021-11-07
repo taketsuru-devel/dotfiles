@@ -79,10 +79,11 @@ set laststatus=2
 nmap <silent> gd :LspDefinition<CR>
 nmap <silent> gl :LspHover<CR>
 nmap <silent> gi :LspImplementation<CR>
+nmap <silent> gc :LspDocumentDiagnostics<CR>
 nmap <silent> <f2> :LspRename<CR>
 
 let g:lsp_diagnostics_enabled = 1
-"let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_diagnostics_echo_cursor = 1
 let g:asyncomplete_auto_popup = 1
 "let g:asyncomplete_auto_completeopt = 0
 let g:asyncomplete_popup_delay = 200

@@ -3,7 +3,18 @@ export GOROOT=$( go env GOROOT )
 export GOBIN=$HOME/go/bin
 export PATH=$GOPATH/bin:$PATH
 
+# goenv
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
+eval "$(goenv init -)"
+export PATH="$GOROOT/bin:$PATH"
+export PATH="$PATH:$GOPATH/bin"
+
 # brew install starship
 # or
 # curl -fsSL https://starship.rs/install.sh | sudo bash
 eval "$(starship init bash)"
+
+# rust入れる際に勝手にできるけど動かなかったので修正
+# . "$HOME/.cargo/env"
+export PATH="$PATH:$HOME/.cargo/env"

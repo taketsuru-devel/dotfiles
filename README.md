@@ -1,6 +1,6 @@
 # git
-git config --global user.name  "********"
-git config --global user.email "********"
+- git config --global user.name  "********"
+- git config --global user.email "********"
 
 # vim
 - neobundle入れる
@@ -16,7 +16,8 @@ git config --global user.email "********"
 -- ln -s ~/dotfiles/.tmux.conf ~/
 
 # go
-- 1.10.3
+- goenv
+-- git clone https://github.com/syndbg/goenv.git ~/.goenv 
 - aptなりyumで入れた後の環境変数
 -- cat ~/dotfiles/.bashrc_diff >> ~/.bashrc
 - mkdir $HOME/go
@@ -31,6 +32,11 @@ git config --global user.email "********"
 - 今使ってるのは10.16.3
 -- nvm install 10.16.3
 -- nvm use 10.16.3
+
+# rust
+- curl -sSf https://sh.rustup.rs | sh
+- 公式のlspを使う
+-- rustup component add rls rust-analysis rust-src 
 
 # terminal
 - beepを消す
