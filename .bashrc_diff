@@ -1,6 +1,13 @@
+# disable screen lock
+stty stop undef
+
+# vim-lsp
+PATH=$PATH:$HOME/.local/bin:$HOME/bin
+
+# go
 export GOPATH=$HOME/go
-export GOROOT=$( go env GOROOT )
-export GOBIN=$HOME/go/bin
+#export GOROOT=$( go env GOROOT )
+#export GOBIN=$HOME/go/bin
 export PATH=$GOPATH/bin:$PATH
 
 # goenv
@@ -13,8 +20,11 @@ export PATH="$PATH:$GOPATH/bin"
 # brew install starship
 # or
 # curl -fsSL https://starship.rs/install.sh | sudo bash
-eval "$(starship init bash)"
+# 好みで入れてない環境もあるので考慮
+if which starship 1> /dev/null 2>&1; then
+    eval "$(starship init bash)"
+fi
 
-# rust入れる際に勝手にできるけど動かなかったので修正
-# . "$HOME/.cargo/env"
-export PATH="$PATH:$HOME/.cargo/env"
+# rust
+# rustのinstallで追加されるやつだが一応
+. "$HOME/.cargo/env"

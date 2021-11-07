@@ -1,3 +1,9 @@
+# 初期設定
+- ln -s dotfiles/.vimrc ~/
+- ln -s dotfiles/.bashrc_diff ~/
+- ln -s dotfiles/.tmux_conf ~/
+- ~/.bash_profileの末尾にsource .bashrc_diff
+
 # git
 - git config --global user.name  "********"
 - git config --global user.email "********"
@@ -6,14 +12,10 @@
 - neobundle入れる
 -- curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > install.sh
 -- ./install.sh
-- .vimrcへのリンク
--- ln -s ~/dotfiles/.vimrc ~/
 - vim開いて:neoBundleInstall
 
 # tmux
 - 2.6
-- .tmux.confへのリンク
--- ln -s ~/dotfiles/.tmux.conf ~/
 
 # go
 - goenv
@@ -42,6 +44,3 @@
 - beepを消す
 -- sudo vim /etc/inputrc
 -- set bell-style noneの行のコメントアウト解除
-
-あとはgithubに鍵を入れる
-スプレッドシートのデータをS3にcsvで退避
