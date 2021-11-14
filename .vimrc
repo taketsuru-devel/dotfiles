@@ -47,6 +47,10 @@ NeoBundle 'mattn/vim-lsp-settings'
 "editorconfigを使う
 NeoBundle 'editorconfig/editorconfig-vim'
 
+" ctrl+e -> h,j,k,l
+" 細かい設定は下に
+NeoBundle 'simeji/winresizer'
+
 "保存時にeslint
 "http://qiita.com/toshihirock/items/39ee62ddee2eb997f7b7
 "NeoBundle 'scrooloose/syntastic.git'
