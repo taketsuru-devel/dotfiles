@@ -13,6 +13,9 @@
 -- curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > install.sh
 -- ./install.sh
 - vim開いて:neoBundleInstall
+## vim-go
+- gitとmercurialをinstall
+-- version毎に:GoInstallBinaries
 
 # tmux
 - 2.6

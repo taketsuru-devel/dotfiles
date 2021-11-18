@@ -35,8 +35,9 @@ NeoBundle 'Xuyuanp/nerdtree-git-plugin'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'cohama/agit.vim'
 
-"NeoBundle 'fatih/vim-go'
-"NeoBundle 'vim-jp/vim-go-extra'
+"go
+NeoBundle 'fatih/vim-go'
+NeoBundle 'vim-jp/vim-go-extra'
 
 NeoBundle 'prabirshrestha/async.vim'
 NeoBundle 'prabirshrestha/asyncomplete.vim'
@@ -92,5 +93,6 @@ let g:asyncomplete_auto_popup = 1
 "let g:asyncomplete_auto_completeopt = 0
 let g:asyncomplete_popup_delay = 200
 
-autocmd BufWritePre *.go LspDocumentFormatSync
+"vim-goとケンカするので無効化
+"autocmd BufWritePre *.go LspDocumentFormatSync
 
