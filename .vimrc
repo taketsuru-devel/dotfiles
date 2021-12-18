@@ -35,9 +35,8 @@ NeoBundle 'Xuyuanp/nerdtree-git-plugin'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'cohama/agit.vim'
 
-"go
-NeoBundle 'fatih/vim-go'
-NeoBundle 'vim-jp/vim-go-extra'
+"NeoBundle 'fatih/vim-go'
+"NeoBundle 'vim-jp/vim-go-extra'
 
 NeoBundle 'prabirshrestha/async.vim'
 NeoBundle 'prabirshrestha/asyncomplete.vim'
@@ -45,12 +44,34 @@ NeoBundle 'prabirshrestha/asyncomplete-lsp.vim'
 NeoBundle 'prabirshrestha/vim-lsp'
 NeoBundle 'mattn/vim-lsp-settings'
 
+"test
+NeoBundle 'vim-test/vim-test'
+
+"Dispatch
+"コマンド実行時に新たにpainを割り当てる
+NeoBundle 'tpope/vim-dispatch'
+let test#strategy = "dispatch"
+
 "editorconfigを使う
 NeoBundle 'editorconfig/editorconfig-vim'
 
 " ctrl+e -> h,j,k,l
 " 細かい設定は下に
 NeoBundle 'simeji/winresizer'
+
+"localvimrc
+"makeとかで引数違いが地味にある
+NeoBundle 'embear/vim-localvimrc'
+
+"go用のutil
+NeoBundle 'mattn/vim-gorun'
+""go install golang.org/x/tools/cmd/goimports@latest
+NeoBundle 'mattn/vim-goimports'
+""go install github.com/fatih/gomodifytags@latest
+NeoBundle 'mattn/vim-goaddtags'
+""go install github.com/josharian/impl@latest
+NeoBundle 'mattn/vim-goimpl'
+
 
 "保存時にeslint
 "http://qiita.com/toshihirock/items/39ee62ddee2eb997f7b7
@@ -80,6 +101,10 @@ map <C-n> :NERDTreeToggle
 
 set laststatus=2
 
+"lvimrcロードを暗黙でやる(尋ねてこない)
+let g:localvimrc_sandbox = 0
+let g:localvimrc_ask = 0
+
 "https://qiita.com/kitagry/items/216c2cf0066ff046d200
 nmap <silent> gd :LspDefinition<CR>
 nmap <silent> gl :LspHover<CR>
@@ -93,6 +118,5 @@ let g:asyncomplete_auto_popup = 1
 "let g:asyncomplete_auto_completeopt = 0
 let g:asyncomplete_popup_delay = 200
 
-"vim-goとケンカするので無効化
-"autocmd BufWritePre *.go LspDocumentFormatSync
-
+"整形とimport整理
+autocmd BufWritePre *.go call execute(['LspCodeActionSync source.organizeImports', 'LspDocumentFormatSync'])"

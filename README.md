@@ -10,22 +10,40 @@
 
 # vim
 - neobundle入れる
--- curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > install.sh
--- ./install.sh
+    - curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > install.sh
+    - ./install.sh
 - vim開いて:neoBundleInstall
-## vim-go
-- gitとmercurialをinstall
--- version毎に:GoInstallBinaries
+- .lvimrcも使える
+    - サンプル
+    - nmap <silent> gm :Dispatch make -f scripts/Makefile build-linux<CR>
+    - nmap <silent> gt :TestFile<CR>
+## キーバインド
+- 追加したものやデフォのもの含めメモ
+    - `C-n` -> nerdtree
+    - `C-e h,j,k,l` -> リサイズ
+    - `gd` -> Lspで定義ジャンプ
+    - `gl` -> Lspで定義簡易表示
+    - `gi` -> Lspで？？？
+    - `gc` -> Lspで文法チェック
+    - `:vim "pattern" */**(.suffix)` -> grep & quickfix
 
 # tmux
 - 2.6
 
 # go
 - goenv
--- git clone https://github.com/syndbg/goenv.git ~/.goenv 
+    - git clone https://github.com/syndbg/goenv.git ~/.goenv 
 - aptなりyumで入れた後の環境変数
--- cat ~/dotfiles/.bashrc_diff >> ~/.bashrc
+    - cat ~/dotfiles/.bashrc_diff >> ~/.bashrc
 - mkdir $HOME/go
+- ツールを入れる
+    - go install golang.org/x/tools/cmd/goimports@latest
+    - go install github.com/fatih/gomodifytags@latest
+    - go install github.com/josharian/impl@latest
+    - 多分goenvのバージョン単位で必要
+    - `:GoImpl if名 str名`でstrと実装すべきfuncを生成
+    - 構造体定義の中で`:GoAddTags json`でtag、`:GoRemoveTags`で削除生成
+    - デフォはsnake、camelにしたけりゃ.lvimrcで`let g:go_addtags_transform = 'camelcase'`
 
 # node
 - nvm入れる
