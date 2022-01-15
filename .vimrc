@@ -41,7 +41,7 @@ NeoBundle 'cohama/agit.vim'
 NeoBundle 'prabirshrestha/async.vim'
 NeoBundle 'prabirshrestha/asyncomplete.vim'
 NeoBundle 'prabirshrestha/asyncomplete-lsp.vim'
-NeoBundle 'prabirshrestha/vim-lsp'
+NeoBundle 'prabirshrestha/vim-lsp', 'v0.1.3'
 NeoBundle 'mattn/vim-lsp-settings'
 
 "test
@@ -94,7 +94,7 @@ syntax on
 set backspace=indent,eol,start
 
 "NERDTree shortcut
-map <C-n> :NERDTreeToggle
+map <silent> <C-n> :NERDTreeToggle<CR>
 
 "vim-go ワーニングが出る、vim 7.4.2009かNeovim 0.3.1以降推奨とのこと
 "let g:go_version_warning = 0
@@ -106,11 +106,11 @@ let g:localvimrc_sandbox = 0
 let g:localvimrc_ask = 0
 
 "https://qiita.com/kitagry/items/216c2cf0066ff046d200
-nmap <silent> gd :LspDefinition<CR>
-nmap <silent> gl :LspHover<CR>
-nmap <silent> gi :LspImplementation<CR>
-nmap <silent> gc :LspDocumentDiagnostics<CR>
-nmap <silent> <f2> :LspRename<CR>
+nnoremap <silent> gd :LspDefinition<CR>
+nnoremap <silent> gl :LspHover<CR>
+nnoremap <silent> gi :LspImplementation<CR>
+nnoremap <silent> gc :LspDocumentDiagnostics<CR>
+nnoremap <silent> <f2> :LspRename<CR>
 
 let g:lsp_diagnostics_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
@@ -120,3 +120,15 @@ let g:asyncomplete_popup_delay = 200
 
 "整形とimport整理
 autocmd BufWritePre *.go call execute(['LspCodeActionSync source.organizeImports', 'LspDocumentFormatSync'])"
+
+"ダメおし
+"noremap <C-h> <Left>
+"noremap <C-j> <Down>
+"noremap <C-k> <Up>
+"noremap <C-l> <Right>
+
+"map <Left>  <Left>
+"map <Down>  <Down>
+"map <Up>    <Up>
+"map <Right> <Right>
+
