@@ -1,4 +1,3 @@
--- cp to ~/.config/nvim/
 -- terminal設定
 -- https://qiita.com/rakudalms/items/e7aa4d2d55622a5dd7ab
 -- https://sy-base.com/myrobotics/vim/neovim-settings/
@@ -10,9 +9,15 @@
 -- brew cask install font-hack-nerd-font
 -- その後ターミナルのfont設定でHack Nerd Font Regularを選択
 
+-- リーダーキーをスペースに設定
+vim.g.mapleader = " "
+
+-- 24ビットカラー（truecolor）を有効化
+vim.opt.termguicolors = true
+
 vim.opt.relativenumber = true
 vim.opt.number = true
-vim.opt.statuscolumn = "%s %l %r "
+-- vim.opt.statuscolumn = "%s %l %r "
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -68,7 +73,46 @@ require("lazy").setup({
       "nvim-tree/nvim-web-devicons",
     },
     config = function()
-      require("nvim-tree").setup {}
+      -- on_attach 関数の定義
+      local function my_on_attach(bufnr)
+        local api = require("nvim-tree.api")
+     
+        local function opts(desc)
+          return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+        end
+     
+        -- 1. デフォルトのキーバインドをすべて適用
+        api.config.mappings.default_on_attach(bufnr)
+     
+        -- 2. 不要なデフォルトバインドを削除 (v: 垂直分割, x: 水平分割)
+        -- これにより v と x が Vim 本来の挙動に戻ります
+        -- バインドがなくてもエラーにならないようにpcallを使用
+        pcall(vim.keymap.del, 'n', 'v', { buffer = bufnr })
+        pcall(vim.keymap.del, 'n', 'x', { buffer = bufnr })
+     
+        -- 3. 新しいキーバインドを設定
+        -- s: 垂直分割 (vertical), i: 水平分割 (horizontal)
+        vim.keymap.set('n', 's', api.node.open.vertical,   opts('Open: Vertical Split'))
+        vim.keymap.set('n', 'i', api.node.open.horizontal, opts('Open: Horizontal Split'))
+        
+        -- (任意) t で新しいタブで開く
+        vim.keymap.set('n', 't', api.node.open.tab,        opts('Open: New Tab'))
+      end
+
+      require("nvim-tree").setup {
+        on_attach = my_on_attach,
+        git = {
+          enable = true,
+          ignore = false,
+        },
+        actions = {
+          open_file = {
+            window_picker = {
+              enable = false,
+            }
+          }
+        },
+      }
       vim.cmd([[NvimTreeToggle]])
     end,
   },
@@ -83,16 +127,43 @@ require("lazy").setup({
     end,
   },
 
+
   {
-    "joshuavial/aider.nvim",
-    opts = {
-      -- your configuration comes here
-      -- if you don't want to use the default settings
-      auto_manage_context = true, -- automatically manage buffer context
-      default_bindings = true,    -- use default <leader>A keybindings
-      debug = false,              -- enable debug logging
+    "supermaven-inc/supermaven-nvim",
+    config = function()
+      require("supermaven-nvim").setup({
+        keymaps = {
+          accept_suggestion = "<Tab>",
+          clear_suggestion = "<C-e>",  -- Ctrl+e で補完をクリア（直感的）
+          accept_word = "<C-j>",
+        },
+        ignore_filetypes = { cpp = true },
+        color = {
+          suggestion_color = "#5f87af",  -- 落ち着いた青色（見やすい）
+          cterm = 67,
+        },
+        debounce = 1000,  -- 1秒（1000ms）待ってから補完を表示
+      })
+    end,
+  },
+
+  {
+    "coder/claudecode.nvim",
+    dependencies = { "folke/snacks.nvim" },
+    config = true,
+    keys = {
+      { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
+      { "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
+      { "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
+      { "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
+      { "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select model" },
+      { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
+      { "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
+      { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
+      { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
     },
   },
+
 
   -- use "hrsh7th/cmp-path"
   -- use "hrsh7th/cmp-buffer"
@@ -104,6 +175,10 @@ require("lazy").setup({
 -- 1. LSP Sever management
 require('mason').setup()
 require('mason-lspconfig').setup({
+  ensure_installed = {
+    'pyright',     -- Python
+    'terraformls', -- Terraform
+  },
   handlers = {
     function(server)
       local opt = {
@@ -199,3 +274,9 @@ cmp.setup({
 -- })
 
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+
+-- ノーマルモードでカーソル下の単語を:Ggrepで検索
+vim.keymap.set('n', '<C-g>', function()
+  local word = vim.fn.expand('<cword>')
+  vim.cmd('Ggrep ' .. word .. ' * | cw')
+end, { noremap = true, silent = true })

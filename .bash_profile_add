@@ -4,27 +4,29 @@ stty stop undef
 # vim-lsp
 PATH=$PATH:$HOME/.local/bin:$HOME/bin
 
+
 # go
-export GOPATH=$HOME/go
-#export GOROOT=$( go env GOROOT )
-#export GOBIN=$HOME/go/bin
-export PATH=$GOPATH/bin:$PATH
+#export GOPATH=$HOME/go
+##export GOROOT=$( go env GOROOT )
+##export GOBIN=$HOME/go/bin
+#export PATH=$GOPATH/bin:$PATH
 
 # goenv
-export GOENV_ROOT="$HOME/.goenv"
-export PATH="$GOENV_ROOT/bin:$PATH"
-eval "$(goenv init -)"
-export PATH="$GOROOT/bin:$PATH"
-export PATH="$PATH:$GOPATH/bin"
+#export GOENV_ROOT="$HOME/.goenv"
+#export PATH="$GOENV_ROOT/bin:$PATH"
+#eval "$(goenv init -)"
+#export PATH="$GOROOT/bin:$PATH"
+#export PATH="$PATH:$GOPATH/bin"
 
 # brew install starship
 # or
 # curl -fsSL https://starship.rs/install.sh | sudo bash
 # 好みで入れてない環境もあるので考慮
 if which starship 1> /dev/null 2>&1; then
-    eval "$(starship init bash)"
+    eval "$(starship init zsh)"
+    #eval "$(starship init bash)"
 fi
 
 # rust
 # rustのinstallで追加されるやつだが一応
-. "$HOME/.cargo/env"
+#. "$HOME/.cargo/env"
