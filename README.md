@@ -1,7 +1,7 @@
 # 初期設定
 - ~/でgit clone
 - ln -s dotfiles/.bash_profile_add ~/
-- ln -s dotfiles/.tmux_conf ~/
+- ln -s dotfiles/.tmux.conf ~/
 - ~/.bash_profileの末尾にsource .bash_profile_add
 - cd ~/.config/nvim && ln -s ~/dotfiles/init.lua ./
 - cd ~/.claude/ && ln -s ~/dotfiles/skills ./
@@ -18,6 +18,21 @@
     - p,nで切り替え
     - "で下分割
     - %で横分割
+
+## TPM（プラグインマネージャー）のインストール
+```bash
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
+
+## プラグインのインストール
+1. tmuxを起動または設定を再読み込み: `tmux source ~/.tmux.conf`
+2. tmux内で `Ctrl+q` → `I`（大文字のI）を押してプラグインをインストール
+
+## session保存・復元（tmux-resurrect / tmux-continuum）
+- **手動保存**: `Ctrl+q` → `Ctrl+s`
+- **手動復元**: `Ctrl+q` → `Ctrl+r`
+- **自動保存**: 15分ごとに自動保存（tmux-continuum）
+- **自動復元**: tmux起動時に前回のsessionを自動復元
 
 # go
 - goenv
