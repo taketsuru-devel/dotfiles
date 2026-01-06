@@ -228,12 +228,29 @@ set updatetime=500
 highlight LspReferenceText  cterm=underline ctermfg=1 ctermbg=8 gui=underline guifg=#A00000 guibg=#104040
 highlight LspReferenceRead  cterm=underline ctermfg=1 ctermbg=8 gui=underline guifg=#A00000 guibg=#104040
 highlight LspReferenceWrite cterm=underline ctermfg=1 ctermbg=8 gui=underline guifg=#A00000 guibg=#104040
-augroup lsp_document_highlight
-  autocmd!
-  autocmd CursorHold,CursorHoldI * lua vim.lsp.buf.document_highlight()
-  autocmd CursorMoved,CursorMovedI * lua vim.lsp.buf.clear_references()
-augroup END
 ]]
+
+-- Reference highlight with capability check
+vim.api.nvim_create_augroup('lsp_document_highlight', { clear = true })
+vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+  group = 'lsp_document_highlight',
+  callback = function()
+    -- Check if any attached LSP client supports documentHighlight
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
+    for _, client in ipairs(clients) do
+      if client.server_capabilities.documentHighlightProvider then
+        vim.lsp.buf.document_highlight()
+        return
+      end
+    end
+  end,
+})
+vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+  group = 'lsp_document_highlight',
+  callback = function()
+    vim.lsp.buf.clear_references()
+  end,
+})
 
 -- 3. completion (hrsh7th/nvim-cmp)
 local cmp = require("cmp")
@@ -273,7 +290,15 @@ cmp.setup({
 --   },
 -- })
 
+-- ターミナルモードからノーマルモードに戻る
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+
+-- ターミナルモードで Ctrl-w を使ってウィンドウ移動（Escを押さずに済む）
+vim.keymap.set("t", "<C-w>", "<C-\\><C-n><C-w>", { noremap = true, silent = true })
+
+-- ターミナルを開く
+vim.keymap.set('n', '<leader>t', '<cmd>split | terminal<cr>', { noremap = true, silent = true })  -- 水平分割でターミナル
+vim.keymap.set('n', '<leader>vt', '<cmd>vsplit | terminal<cr>', { noremap = true, silent = true }) -- 垂直分割でターミナル
 
 -- ノーマルモードでカーソル下の単語を:Ggrepで検索
 vim.keymap.set('n', '<C-g>', function()
