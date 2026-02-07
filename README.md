@@ -4,7 +4,6 @@
 - ln -s dotfiles/.tmux.conf ~/
 - ~/.bash_profileの末尾にsource .bash_profile_add
 - cd ~/.config/nvim && ln -s ~/dotfiles/init.lua ./
-- cd ~/.claude/ && ln -s ~/dotfiles/skills ./
 
 # git
 - git config --global user.name  "********"
@@ -121,7 +120,3 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 - `Tab`: 補完を受け入れ
 - `Ctrl+e`: 補完をクリア
 - `Ctrl+j`: 単語単位で受け入れ
-
-
-# claude code
-- nvimのskill追加
