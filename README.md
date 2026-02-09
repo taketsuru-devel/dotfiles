@@ -18,6 +18,19 @@
     - "で下分割
     - %で横分割
 
+## 他に入れておくもの
+
+- homebrew
+- git
+- tmux
+- nvim
+- claude
+- gemini
+- starship
+- gh
+- direnv
+- pyenv
+
 ## TPM（プラグインマネージャー）のインストール
 ```bash
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
